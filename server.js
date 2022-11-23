@@ -26,6 +26,14 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+let MongoClient = require("mongodb").MongoClient;
+
+MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+  if (err) throw err;
+  console.log("Database created!");
+  db.close();
+});
+
 myDB(async (client) => {
   const myDataBase = await client.db("database").collection("users");
 
